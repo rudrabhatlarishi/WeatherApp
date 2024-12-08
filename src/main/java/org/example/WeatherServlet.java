@@ -14,6 +14,7 @@ public class WeatherServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Content-Type", "application/json");
 
@@ -30,9 +31,13 @@ public class WeatherServlet extends HttpServlet {
         String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
 
         try {
+            long startTime = System.currentTimeMillis();
+
             // Fetch weather data
             String weatherData = WeatherApiClient.fetchWeather(apiUrl);
             JSONObject jsonResponse = new JSONObject(weatherData);
+
+
 
             // Check for API errors
             if (!jsonResponse.has("main")) {
@@ -57,6 +62,9 @@ public class WeatherServlet extends HttpServlet {
             responseJson.put("weather", description);
             responseJson.put("humidity", humidity);
             responseJson.put("windSpeed", windSpeed);
+
+
+
 
             // Write the JSON response
             PrintWriter writer = resp.getWriter();

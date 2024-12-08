@@ -2,6 +2,8 @@ document.getElementById('getWeather').addEventListener('click', () => {
     const location = document.getElementById('location').value;
 
     if (location) {
+
+
         // Update the URL to your backend endpoint
         fetch(`http://localhost:8080/weather?city=${location}`)
             .then(response => {
@@ -11,11 +13,14 @@ document.getElementById('getWeather').addEventListener('click', () => {
                 return response.json(); // Parse response as JSON
             })
             .then(data => {
+
                 // Update the output with weather data
                 document.getElementById('output').innerHTML = `
                     <p><strong>City:</strong> ${data.city}</p>
                     <p><strong>Temperature:</strong> ${data.temperature}°C</p>
                     <p><strong>Weather:</strong> ${data.weather}</p>
+                    <p><strong>Humidity:</strong> ${data.humidity}%</p>
+                    <p><strong>Wind Speed:</strong> ${data.windSpeed} m/s</p>
                 `;
             })
             .catch(error => {

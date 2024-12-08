@@ -63,6 +63,7 @@ public class WeatherServer {
                 os.write(responseBytes);
                 os.close();
 
+
             } catch (Exception e) {
                 try {
                     String error = "{\"error\": \"" + e.getMessage() + "\"}";

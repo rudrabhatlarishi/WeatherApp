@@ -18,6 +18,8 @@ public class Main {
         String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
         try {
+            long startTime = System.currentTimeMillis();
+
             // Establish HTTP connection
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -31,6 +33,8 @@ public class Main {
                 response.append(line);
             }
             reader.close();
+            long endTime = System.currentTimeMillis();
+
 
             // Parse JSON response
             JSONObject jsonResponse = new JSONObject(response.toString());
@@ -40,6 +44,7 @@ public class Main {
             // Output weather details
             System.out.println("Weather in " + city + ": " + weather);
             System.out.println("Temperature: " + String.format("%.2f", temp) + "°C");
+            System.out.println("API Response Time: " + (endTime - startTime) + " ms");
 
         } catch (Exception e) {
             System.out.println("Error fetching weather data: " + e.getMessage());
